@@ -10,14 +10,17 @@ inputs:
   jira-base-url:
     description: 'Base JIRA URL'
     required: true
+  github-token:
+    description: 'Github Token ( usually from secrets )'
+    required: true
 runs:
   using: "composite"
   steps:
     - uses: cakeinpanic/jira-description-action@v0.4.0
       name: jira-description-action
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+        github-token: ${{ inputs.github-token }}
         jira-token: ${{ format('{0}:{1}', inputs.jira-email, inputs.jira-token) }}
-        jira-base-url: {{ inputs.jira-base-url }}
+        jira-base-url: ${{ inputs.jira-base-url }}
         fail-when-jira-issue-not-found: "true"
         use: "pr-title"
