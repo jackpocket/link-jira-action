@@ -12,3 +12,6 @@ Github Action to link a JIRA issue to the PR based on PR title
           jira-email: secrets.FAKE_JIRA_EMAIL
           jira-token: secrets.FAKE_JIRA_TOKEN
 ```
+
+
+Uses the PR Title (not the branch) for searching for JIRA issue to ensure that we have consistent PR titles.
