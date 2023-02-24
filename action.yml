@@ -1,0 +1,23 @@
+name: 'Link PR to JIRA'
+description: 'Github Action to link a JIRA issue to the PR based on PR title'
+inputs:
+  jira-token:
+    description: 'JIRA Token'
+    required: true
+  jira-email:
+    description: 'JIRA Email'
+    required: true
+  jira-base-url:
+    description: 'Base JIRA URL'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - uses: cakeinpanic/jira-description-action@v0.4.0
+      name: jira-description-action
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        jira-token: ${{ format('{0}:{1}', inputs.jira-email, inputs.jira-token) }}
+        jira-base-url: {{ inputs.jira-base-url }}
+        fail-when-jira-issue-not-found: "true"
+        use: "pr-title"
